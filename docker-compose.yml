@@ -1,0 +1,178 @@
+version: '3.8'
+
+# Cheggie Studios — Development Docker Compose
+# Usage: docker compose up --build
+# All services share the internal 'cheggie' network.
+# Postgres and Redis ports are exposed here for local debugging.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DOCKER_BUILD=true
+    container_name: cheggie-app
+    ports:
+      - '3000:3000'
+    env_file: .env
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/cheggie_studios?schema=public
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - cheggie
+    restart: on-failure
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: cheggie-postgres
+    environment:
+      POSTGRES_DB: cheggie_studios
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - cheggie
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d cheggie_studios']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: cheggie-redis
+    command: redis-server --appendonly yes --appendfsync everysec
+    volumes:
+      - redis_data:/data
+    ports:
+      - '6379:6379'
+    networks:
+      - cheggie
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped
+
+  # BullMQ worker: audio/video transcription via OpenAI Whisper
+  worker-transcript:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DOCKER_BUILD=true
+    container_name: cheggie-worker-transcript
+    command: node workers/transcript.worker.js
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/cheggie_studios?schema=public
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - cheggie
+    restart: on-failure
+
+  # BullMQ worker: subtitle generation and formatting
+  worker-subtitle:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DOCKER_BUILD=true
+    container_name: cheggie-worker-subtitle
+    command: node workers/subtitle.worker.js
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/cheggie_studios?schema=public
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - cheggie
+    restart: on-failure
+
+  # BullMQ worker: export jobs (video rendering, SRT/VTT generation)
+  worker-export:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DOCKER_BUILD=true
+    container_name: cheggie-worker-export
+    command: node workers/export.worker.js
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/cheggie_studios?schema=public
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - cheggie
+    restart: on-failure
+
+  # BullMQ worker: search indexing (full-text transcript search)
+  worker-search:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DOCKER_BUILD=true
+    container_name: cheggie-worker-search
+    command: node workers/search.worker.js
+    env_file: .env
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/cheggie_studios?schema=public
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - cheggie
+    restart: on-failure
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  cheggie:
+    driver: bridge
