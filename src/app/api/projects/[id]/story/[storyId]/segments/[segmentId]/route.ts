@@ -167,7 +167,7 @@ export async function DELETE(
       )
     }
 
-    await prisma.$transaction(async (tx: typeof prisma) => {
+    await prisma.$transaction(async (tx) => {
       await tx.storySegment.delete({ where: { id: segmentId } })
 
       const remaining = await tx.storySegment.findMany({

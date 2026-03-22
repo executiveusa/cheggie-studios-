@@ -29,10 +29,14 @@
     "worker:export": "tsx src/workers/export.worker.ts",
     "worker:search": "tsx src/workers/search.worker.ts",
     "worker:all": "concurrently \"pnpm worker:transcript\" \"pnpm worker:subtitle\" \"pnpm worker:export\" \"pnpm worker:search\"",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org cheggie-studios --project cheggie-studios ./next && sentry-cli sourcemaps upload --org cheggie-studios --project cheggie-studios ./next"
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org cheggie-studios --project cheggie-studios ./next && sentry-cli sourcemaps upload --org cheggie-studios --project cheggie-studios ./next",
+    "deploy:agent": "tsx tools/vercel-agent/agent.ts",
+    "deploy:check": "tsx tools/vercel-agent/check-deployment.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
+    "@aws-sdk/client-s3": "^3.1014.0",
+    "@aws-sdk/s3-request-presigner": "^3.1014.0",
     "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "^6.5.0",
     "@radix-ui/react-accordion": "^1.2.3",
@@ -57,7 +61,7 @@
     "@tanstack/react-query": "^5.70.0",
     "@tanstack/react-query-devtools": "^5.70.0",
     "@upstash/ratelimit": "^2.0.5",
-    "auth": "^5.0.0-beta.25",
+    "bcryptjs": "^3.0.3",
     "bullmq": "^5.34.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -66,6 +70,7 @@
     "ioredis": "^5.4.2",
     "lucide-react": "^0.479.0",
     "next": "^15.2.3",
+    "next-auth": "^5.0.0-beta.25",
     "next-themes": "^0.4.6",
     "openai": "^4.87.0",
     "react": "^19.1.0",

@@ -24,7 +24,7 @@ redisConnection.on('error', (err: Error) => {
 export function createQueue<TData = unknown, TResult = unknown>(
   name: string,
 ): Queue<TData, TResult> {
-  return new Queue<TData, TResult>(name, {
+  return new Queue(name, {
     connection: redisConnection,
     defaultJobOptions: {
       attempts: 3,
@@ -35,7 +35,7 @@ export function createQueue<TData = unknown, TResult = unknown>(
       removeOnComplete: { count: 100 },
       removeOnFail: { count: 500 },
     },
-  })
+  } as any) as Queue<TData, TResult>
 }
 
 // ---------------------------------------------------------------------------
@@ -51,7 +51,7 @@ export function createWorker<TData = unknown, TResult = unknown>(
     connection: redisConnection,
     concurrency,
     autorun: true,
-  })
+  } as any)
 
   worker.on('failed', (job, err) => {
     console.error('[worker] job failed', {

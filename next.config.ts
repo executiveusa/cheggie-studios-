@@ -11,11 +11,10 @@ const nextConfig: NextConfig = {
     reactCompiler: false,
     // Partial prerendering (PPR) for hybrid static/dynamic rendering
     ppr: false,
-    // Typed routes for compile-time route validation
-    typedRoutes: true,
-    // Instrumentation hook support
-    instrumentationHook: true,
   },
+
+  // Typed routes for compile-time route validation
+  typedRoutes: true,
 
   // Image optimization configuration
   images: {

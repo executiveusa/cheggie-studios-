@@ -20,7 +20,7 @@ async function createJobRecord(
       type,
       status: 'PENDING',
       projectId: projectId ?? undefined,
-      payload,
+      payload: payload as any,
     },
     select: { id: true },
   })
