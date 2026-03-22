@@ -1,52 +1,17 @@
 import { Queue, Worker, type Processor } from 'bullmq'
 import IORedis from 'ioredis'
+import { env } from '@/lib/env'
 
 // ---------------------------------------------------------------------------
 // Redis connection — shared across all queues and workers
 // maxRetriesPerRequest: null is required by BullMQ
 // ---------------------------------------------------------------------------
 
-function getRedisUrl(): string {
-  const url = process.env['REDIS_URL']
-  if (!url) {
-    throw new Error('REDIS_URL environment variable is not set')
-  }
-  return url
-}
-
-let _redisConnection: IORedis | null = null
-
-export function getRedisConnection(): IORedis {
-  if (!_redisConnection) {
-    _redisConnection = new IORedis(getRedisUrl(), {
-      maxRetriesPerRequest: null,
-      enableReadyCheck: false,
-      lazyConnect: false,
-    })
-
-    _redisConnection.on('error', (err: Error) => {
-      console.error('[redis] connection error', { message: err.message })
-    })
-  }
-
-  return _redisConnection
-}
-
-export const redisConnection: IORedis = new IORedis(
-  (() => {
-    const url = process.env['REDIS_URL']
-    if (!url) {
-      // Return a placeholder URL for build-time — actual connection happens at runtime
-      return 'redis://localhost:6379'
-    }
-    return url
-  })(),
-  {
-    maxRetriesPerRequest: null,
-    enableReadyCheck: false,
-    lazyConnect: true,
-  },
-)
+export const redisConnection: IORedis = new IORedis(env.REDIS_URL, {
+  maxRetriesPerRequest: null,
+  enableReadyCheck: false,
+  lazyConnect: true,
+})
 
 redisConnection.on('error', (err: Error) => {
   console.error('[redis] connection error', { message: err.message })
