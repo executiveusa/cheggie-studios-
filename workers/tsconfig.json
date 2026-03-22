@@ -1,13 +1,42 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "module": "CommonJS",
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
     "outDir": "../dist/workers",
-    "rootDir": ".",
-    "noEmit": false,
-    "plugins": []
+    "rootDir": "..",
+    "baseUrl": "..",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/lib/*": ["src/lib/*"]
+    }
   },
-  "include": ["./**/*", "../src/lib/**/*", "../src/types/**/*"],
-  "exclude": ["node_modules", "../.next", "../dist"]
+  "include": [
+    "./**/*",
+    "../src/lib/ai/whisper.ts",
+    "../src/lib/ai/mock-transcript.ts",
+    "../src/lib/db/index.ts",
+    "../src/lib/env.ts",
+    "../src/lib/errors.ts",
+    "../src/lib/queue/client.ts",
+    "../src/lib/queue/queues.ts",
+    "../src/lib/storage/adapter.ts",
+    "../src/lib/storage/index.ts",
+    "../src/lib/storage/local.ts",
+    "../src/lib/storage/s3.ts",
+    "../src/lib/telemetry/logger.ts"
+  ],
+  "exclude": ["../node_modules", "../.next", "../dist"]
 }
