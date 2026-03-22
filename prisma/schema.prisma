@@ -1,0 +1,443 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum WorkspacePlan {
+  FREE
+  PRO
+  AGENCY
+}
+
+enum WorkspaceMemberRole {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+enum ProjectStatus {
+  DRAFT
+  PROCESSING
+  READY
+  ERROR
+}
+
+enum PipelineStatus {
+  PENDING
+  PROCESSING
+  READY
+  ERROR
+  SKIPPED
+}
+
+enum TranscriptStatus {
+  PENDING
+  PROCESSING
+  READY
+  ERROR
+}
+
+enum StoryStatus {
+  DRAFT
+  READY
+}
+
+enum SubtitleFormat {
+  SRT
+  VTT
+  ASS
+  JSON
+}
+
+enum AssetStatus {
+  PENDING
+  READY
+  ERROR
+}
+
+enum ExportType {
+  TRANSCRIPT_TXT
+  TRANSCRIPT_JSON
+  SUBTITLE_SRT
+  SUBTITLE_VTT
+  STORY_JSON
+  EDIT_PREP
+  METADATA_JSON
+}
+
+enum JobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum SupportCategory {
+  BUG
+  FEATURE_REQUEST
+  BILLING
+  GENERAL
+  CONTENT
+}
+
+enum SupportStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+// ---------------------------------------------------------------------------
+// NextAuth models
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  locale        String    @default("sr-Latn")
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts        Account[]
+  sessions        Session[]
+  workspaces      Workspace[]
+  workspaceMemberships WorkspaceMember[]
+  projects        Project[]
+  supportIssues   SupportIssue[]
+  telemetryEvents TelemetryEvent[]
+
+  @@index([email])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Workspace
+// ---------------------------------------------------------------------------
+
+model Workspace {
+  id        String        @id @default(cuid())
+  name      String
+  ownerId   String
+  plan      WorkspacePlan @default(FREE)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  owner    User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  members  WorkspaceMember[]
+  projects Project[]
+
+  @@index([ownerId])
+}
+
+model WorkspaceMember {
+  id          String              @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        WorkspaceMemberRole @default(VIEWER)
+  createdAt   DateTime            @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@index([workspaceId])
+  @@index([userId])
+}
+
+// ---------------------------------------------------------------------------
+// Project
+// ---------------------------------------------------------------------------
+
+model Project {
+  id                 String         @id @default(cuid())
+  title              String
+  description        String?
+  userId             String
+  workspaceId        String?
+  status             ProjectStatus  @default(DRAFT)
+  sourceFileUrl      String?
+  sourceFileName     String?
+  sourceFileMime     String?
+  sourceFileSizeBytes Int?
+  durationMs         Int?
+  language           String         @default("sr")
+  tags               String[]
+  transcriptStatus   PipelineStatus @default(PENDING)
+  searchStatus       PipelineStatus @default(PENDING)
+  subtitleStatus     PipelineStatus @default(PENDING)
+  exportStatus       PipelineStatus @default(PENDING)
+  thumbnailUrl       String?
+  metadata           Json?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace       Workspace?       @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+  transcript      Transcript?
+  stories         Story[]
+  subtitleAssets  SubtitleAsset[]
+  exportAssets    ExportAsset[]
+  jobRecords      JobRecord[]
+  supportIssues   SupportIssue[]
+  telemetryEvents TelemetryEvent[]
+
+  @@index([userId])
+  @@index([workspaceId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Transcript
+// ---------------------------------------------------------------------------
+
+model Transcript {
+  id             String           @id @default(cuid())
+  projectId      String           @unique
+  language       String           @default("sr")
+  rawText        String?          @db.Text
+  structuredJson Json?
+  wordCount      Int?
+  durationMs     Int?
+  status         TranscriptStatus @default(PENDING)
+  engineUsed     String?
+  confidence     Float?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  project  Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  segments TranscriptSegment[]
+
+  @@index([projectId])
+  @@index([status])
+}
+
+model TranscriptSegment {
+  id           String   @id @default(cuid())
+  transcriptId String
+  index        Int
+  startMs      Int
+  endMs        Int
+  speaker      String?
+  text         String   @db.Text
+  confidence   Float?
+  keywords     String[]
+  createdAt    DateTime @default(now())
+
+  transcript     Transcript     @relation(fields: [transcriptId], references: [id], onDelete: Cascade)
+  storySegments  StorySegment[]
+
+  @@index([transcriptId, index])
+  @@index([transcriptId])
+}
+
+// ---------------------------------------------------------------------------
+// Story
+// ---------------------------------------------------------------------------
+
+model Story {
+  id        String      @id @default(cuid())
+  projectId String
+  title     String      @default("Moja priča")
+  status    StoryStatus @default(DRAFT)
+  notes     String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  project  Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  segments StorySegment[]
+
+  @@index([projectId])
+  @@index([status])
+}
+
+model StorySegment {
+  id                  String   @id @default(cuid())
+  storyId             String
+  transcriptSegmentId String?
+  position            Int
+  inlineText          String?  @db.Text
+  notes               String?
+  label               String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  story             Story              @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  transcriptSegment TranscriptSegment? @relation(fields: [transcriptSegmentId], references: [id], onDelete: SetNull)
+
+  @@index([storyId, position])
+  @@index([storyId])
+  @@index([transcriptSegmentId])
+}
+
+// ---------------------------------------------------------------------------
+// Subtitle & Export assets
+// ---------------------------------------------------------------------------
+
+model SubtitleAsset {
+  id        String         @id @default(cuid())
+  projectId String
+  format    SubtitleFormat
+  url       String?
+  content   String?        @db.Text
+  language  String         @default("sr")
+  status    AssetStatus    @default(PENDING)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([format])
+}
+
+model ExportAsset {
+  id        String      @id @default(cuid())
+  projectId String
+  type      ExportType
+  url       String?
+  sizeBytes Int?
+  status    AssetStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([type])
+}
+
+// ---------------------------------------------------------------------------
+// Job queue tracking
+// ---------------------------------------------------------------------------
+
+model JobRecord {
+  id          String    @id @default(cuid())
+  projectId   String?
+  type        String
+  status      JobStatus @default(PENDING)
+  jobId       String?
+  attempt     Int       @default(0)
+  maxAttempts Int       @default(3)
+  payload     Json?
+  result      Json?
+  error       String?   @db.Text
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  project Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([projectId])
+  @@index([status])
+  @@index([type])
+  @@index([jobId])
+  @@index([createdAt])
+}
+
+// ---------------------------------------------------------------------------
+// Support
+// ---------------------------------------------------------------------------
+
+model SupportIssue {
+  id           String          @id @default(cuid())
+  userId       String?
+  projectId    String?
+  category     SupportCategory
+  message      String          @db.Text
+  context      Json?
+  status       SupportStatus   @default(OPEN)
+  sentryEventId String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([projectId])
+  @@index([status])
+  @@index([category])
+}
+
+// ---------------------------------------------------------------------------
+// Telemetry
+// ---------------------------------------------------------------------------
+
+model TelemetryEvent {
+  id        String   @id @default(cuid())
+  userId    String?
+  projectId String?
+  sessionId String?
+  type      String
+  payload   Json?
+  userAgent String?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  project Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([projectId])
+  @@index([sessionId])
+  @@index([type])
+  @@index([createdAt])
+}
