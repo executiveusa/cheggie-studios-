@@ -87,8 +87,8 @@ export async function POST(
     })
 
     if (existingSegments.length !== segmentIds.length) {
-      const foundIds = new Set(existingSegments.map((s) => s.id))
-      const missing = segmentIds.filter((sid) => !foundIds.has(sid))
+      const foundIds = new Set(existingSegments.map((s: { id: string }) => s.id))
+      const missing = segmentIds.filter((sid: string) => !foundIds.has(sid))
       return NextResponse.json(
         formatApiError(
           new NotFoundError(`Segments not found: ${missing.join(', ')}.`)
@@ -98,7 +98,7 @@ export async function POST(
     }
 
     await prisma.$transaction(
-      segmentIds.map((segId, index) =>
+      segmentIds.map((segId: string, index: number) =>
         prisma.storySegment.update({
           where: { id: segId },
           data: { position: index },
