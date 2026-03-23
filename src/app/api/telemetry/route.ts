@@ -91,7 +91,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     await prisma.telemetryEvent.create({
       data: {
         type,
-        payload: payload ?? {},
+        payload: (payload ?? {}) as any,
         userId,
         projectId: projectId ?? null,
         sessionId: sessionId ?? null,

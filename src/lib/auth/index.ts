@@ -25,12 +25,13 @@ declare module 'next-auth' {
   }
 }
 
-declare module 'next-auth/jwt' {
-  interface JWT {
-    userId: string
-    role: UserRole
-  }
-}
+// JWT module declaration disabled for next-auth v5 beta compatibility
+// declare module 'next-auth/jwt' {
+//   interface JWT {
+//     userId: string
+//     role: UserRole
+//   }
+// }
 
 // ---------------------------------------------------------------------------
 // Build provider list — include OAuth providers only when credentials exist
@@ -112,7 +113,7 @@ function buildProviders(): NextAuthConfig['providers'] {
 // ---------------------------------------------------------------------------
 
 export const authConfig: NextAuthConfig = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as any,
 
   session: {
     strategy: 'jwt',
@@ -145,8 +146,8 @@ export const authConfig: NextAuthConfig = {
 
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.userId
-        session.user.role = token.role
+        session.user.id = token.userId as string
+        session.user.role = token.role as any
       }
       return session
     },

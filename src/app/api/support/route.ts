@@ -81,7 +81,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         projectId: projectId ?? null,
         category: category as SupportCategory,
         message,
-        context: context ?? undefined,
+        context: context as any,
         status: 'OPEN',
         sentryEventId: sentryEventId ?? null,
       },

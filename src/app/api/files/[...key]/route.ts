@@ -99,7 +99,7 @@ export async function GET(
       mimeType === 'text/plain' ||
       mimeType === 'text/vtt'
 
-    return new NextResponse(buffer, {
+    return new NextResponse(buffer as unknown as BodyInit, {
       status: 200,
       headers: {
         'Content-Type': mimeType,
