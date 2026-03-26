@@ -93,12 +93,29 @@ jobs:
         run: pnpm lint || echo "Lint warnings present — continuing"
 
       - name: Build
-        run: pnpm build
+        run: |
+          pnpm build 2>&1 | tee /tmp/build_output.txt
+          BUILD_EXIT=${PIPESTATUS[0]}
+          echo "Build exit code: $BUILD_EXIT"
+          if [ $BUILD_EXIT -ne 0 ]; then
+            echo "=== BUILD ERRORS ==="
+            grep -E "error|Error|ERROR|Failed|failed|×" /tmp/build_output.txt | head -50 || true
+            exit $BUILD_EXIT
+          fi
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/cheggie_studios' }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'build-time-placeholder-secret-32chars' }}
           NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL || 'https://cheggiestudios.vercel.app' }}
           SKIP_ENV_VALIDATION: "1"
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log-${{ env.BEAD_ID }}
+          path: /tmp/build_output.txt
+          retention-days: 3
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
