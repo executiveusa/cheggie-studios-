@@ -1,6 +1,7 @@
 'use client'
 
-import { Suspense } from 'react'
+export const dynamic = 'force-dynamic'
+
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { AlertTriangle, ArrowLeft } from 'lucide-react'
@@ -24,7 +25,7 @@ const errorMessages: Record<string, string> = {
   Default: 'Došlo je do greške pri prijavi. Pokušajte ponovo.',
 }
 
-function AuthErrorContent() {
+function AuthErrorPage() {
   const searchParams = useSearchParams()
   const error = searchParams.get('error') ?? 'Default'
   const message = errorMessages[error] ?? errorMessages['Default']
@@ -66,10 +67,4 @@ function AuthErrorContent() {
   )
 }
 
-export default function AuthErrorPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#0a0a0f]" />}>
-      <AuthErrorContent />
-    </Suspense>
-  )
-}
+export default AuthErrorPage
