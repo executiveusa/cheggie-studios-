@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { LogoIntro } from '@/components/logo-intro'
+import { ChatWidget } from '@/components/chat/chat-widget'
 
 const inter = Inter({
   subsets: ['latin', 'latin-ext'],
@@ -50,7 +52,9 @@ export default function RootLayout({
   return (
     <html lang="sr" className={`dark ${inter.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased bg-[#0a0a0f] text-[hsl(0_0%_95%)]">
+        <LogoIntro />
         {children}
+        <ChatWidget />
       </body>
     </html>
   )

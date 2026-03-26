@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import {
@@ -14,7 +15,6 @@ import {
   Menu,
   X,
   ChevronDown,
-  Clapperboard,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -69,11 +69,15 @@ export function Navbar({ user }: NavbarProps) {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[hsl(38_92%_50%)]/10 border border-[hsl(38_92%_50%)]/20 group-hover:bg-[hsl(38_92%_50%)]/20 transition-colors">
-              <Clapperboard className="h-4 w-4 text-[hsl(38_92%_50%)]" />
-            </div>
+            <Image
+              src="/logo.webp"
+              alt="Cheggie Studios"
+              width={32}
+              height={32}
+              className="rounded-lg object-contain"
+            />
             <span className="text-lg font-bold text-white">
-              Cheggie <span className="text-[hsl(38_92%_50%)]">Studios</span>
+              Cheggie <span className="text-[hsl(142_71%_45%)]">Studios</span>
             </span>
           </Link>
 
