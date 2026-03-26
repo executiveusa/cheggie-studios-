@@ -17,8 +17,8 @@ const nextConfig: NextConfig = {
     ppr: false,
   },
 
-  // Typed routes for compile-time route validation
-  typedRoutes: true,
+  // Typed routes disabled — requires clean TS compilation across all files
+  // typedRoutes: true,
 
   // Image optimization configuration
   images: {

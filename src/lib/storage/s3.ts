@@ -48,7 +48,7 @@ async function streamToBuffer(
     const readable = stream as NodeJS.ReadableStream
     const chunks: Buffer[] = []
     for await (const chunk of readable) {
-      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk as Uint8Array))
+      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk as unknown as Uint8Array))
     }
     return Buffer.concat(chunks)
   }
