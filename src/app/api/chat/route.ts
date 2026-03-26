@@ -1,6 +1,7 @@
-import { openai } from '@ai-sdk/openai'
+import { createOpenAI } from '@ai-sdk/openai'
 import { streamText, tool } from 'ai'
 import { z } from 'zod'
+import { getSecret } from '@/lib/secrets'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -19,6 +20,9 @@ Budi koncizan, profesionalan i koristan. Fokusiraj se na finance, trading i krei
 
 export async function POST(req: Request) {
   const { messages, projectId } = await req.json()
+
+  const openaiApiKey = await getSecret('OPENAI_API_KEY')
+  const openai = createOpenAI({ apiKey: openaiApiKey })
 
   const result = streamText({
     model: openai('gpt-4o-mini'),
