@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { useLanguage } from '@/lib/language-context'
 
 interface NavbarProps {
   user?: {
@@ -30,6 +31,7 @@ interface NavbarProps {
 
 export function Navbar({ user }: NavbarProps) {
   const pathname = usePathname()
+  const { lang, setLang, t } = useLanguage()
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [userMenuOpen, setUserMenuOpen] = React.useState(false)
   const userMenuRef = React.useRef<HTMLDivElement>(null)
@@ -46,8 +48,8 @@ export function Navbar({ user }: NavbarProps) {
 
   const navLinks = user
     ? [
-        { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        { href: '/dashboard/projects', label: 'Projekti', icon: FolderOpen },
+        { href: '/dashboard', label: t('nav_dashboard'), icon: LayoutDashboard },
+        { href: '/dashboard/projects', label: t('nav_projects'), icon: FolderOpen },
       ]
     : []
 
@@ -103,6 +105,14 @@ export function Navbar({ user }: NavbarProps) {
 
           {/* Right section */}
           <div className="flex items-center gap-3">
+            {/* Language toggle */}
+            <button
+              onClick={() => setLang(lang === 'sr' ? 'en' : 'sr')}
+              className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border border-[hsl(240_5%_22%)] text-[hsl(0_0%_65%)] hover:text-white hover:border-[hsl(240_5%_35%)] transition-colors tracking-wide"
+              title={lang === 'sr' ? 'Switch to English' : 'Prebaci na srpski'}
+            >
+              {lang === 'sr' ? 'EN' : 'SR'}
+            </button>
             {user ? (
               <div className="relative" ref={userMenuRef}>
                 <button
@@ -121,7 +131,7 @@ export function Navbar({ user }: NavbarProps) {
                 {userMenuOpen && (
                   <div className="absolute right-0 top-full mt-1 w-52 rounded-xl border border-[hsl(240_5%_18%)] bg-[hsl(240_8%_10%)] shadow-xl py-1 z-50">
                     <div className="px-3 py-2 border-b border-[hsl(240_5%_18%)]">
-                      <p className="text-xs text-[hsl(240_5%_55%)]">Prijavljen kao</p>
+                      <p className="text-xs text-[hsl(240_5%_55%)]">{t('nav_logged_in_as')}</p>
                       <p className="text-sm text-white truncate">{user.email}</p>
                     </div>
                     <Link
@@ -130,14 +140,14 @@ export function Navbar({ user }: NavbarProps) {
                       onClick={() => setUserMenuOpen(false)}
                     >
                       <Settings className="h-4 w-4" />
-                      Podešavanja
+                      {t('nav_settings')}
                     </Link>
                     <button
                       onClick={() => signOut({ callbackUrl: '/' })}
                       className="flex w-full items-center gap-2 px-3 py-2 text-sm text-[hsl(0_72%_60%)] hover:text-[hsl(0_72%_70%)] hover:bg-[hsl(0_72%_51%)]/10 transition-colors"
                     >
                       <LogOut className="h-4 w-4" />
-                      Odjavi se
+                      {t('nav_logout')}
                     </button>
                   </div>
                 )}
@@ -147,13 +157,13 @@ export function Navbar({ user }: NavbarProps) {
                 <Button variant="ghost" size="sm" asChild>
                   <Link href="/auth/login">
                     <LogIn className="h-4 w-4" />
-                    Prijavi se
+                    {t('nav_login')}
                   </Link>
                 </Button>
                 <Button size="sm" asChild>
                   <Link href="/auth/register">
                     <UserPlus className="h-4 w-4" />
-                    Registruj se
+                    {t('nav_register')}
                   </Link>
                 </Button>
               </div>
@@ -193,12 +203,12 @@ export function Navbar({ user }: NavbarProps) {
             <div className="pt-2 flex flex-col gap-2">
               <Button variant="outline" size="sm" asChild className="w-full">
                 <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
-                  Prijavi se
+                  {t('nav_login')}
                 </Link>
               </Button>
               <Button size="sm" asChild className="w-full">
                 <Link href="/auth/register" onClick={() => setMobileOpen(false)}>
-                  Registruj se
+                  {t('nav_register')}
                 </Link>
               </Button>
             </div>

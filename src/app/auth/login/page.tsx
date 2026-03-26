@@ -13,6 +13,7 @@ import { Clapperboard, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { useLanguage } from '@/lib/language-context'
 
 const loginSchema = z.object({
   email: z.string().email('Unesite validnu email adresu'),
@@ -26,6 +27,7 @@ function LoginContent() {
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') ?? '/dashboard'
   const [serverError, setServerError] = React.useState<string | null>(null)
+  const { t } = useLanguage()
 
   const {
     register,
@@ -45,14 +47,14 @@ function LoginContent() {
       })
 
       if (result?.error) {
-        setServerError('Pogrešan email ili lozinka. Pokušajte ponovo.')
+        setServerError(t('login_error_creds'))
         return
       }
 
       router.push(callbackUrl)
       router.refresh()
     } catch {
-      setServerError('Došlo je do greške. Pokušajte ponovo.')
+      setServerError(t('login_error_generic'))
     }
   }
 
@@ -71,9 +73,9 @@ function LoginContent() {
 
         <Card>
           <CardHeader className="pb-4">
-            <CardTitle className="text-xl">Prijavite se</CardTitle>
+            <CardTitle className="text-xl">{t('login_title')}</CardTitle>
             <CardDescription>
-              Unesite vaše podatke da biste pristupili nalogu
+              {t('login_subtitle')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -86,7 +88,7 @@ function LoginContent() {
               )}
 
               <Input
-                label="Email adresa"
+                label={t('login_email')}
                 type="email"
                 placeholder="vas@email.com"
                 autoComplete="email"
@@ -95,7 +97,7 @@ function LoginContent() {
               />
 
               <Input
-                label="Lozinka"
+                label={t('login_password')}
                 type="password"
                 placeholder="••••••••"
                 autoComplete="current-password"
@@ -108,7 +110,7 @@ function LoginContent() {
                   href="/auth/forgot-password"
                   className="text-sm text-[hsl(38_92%_50%)] hover:text-[hsl(38_92%_60%)] transition-colors"
                 >
-                  Zaboravili ste lozinku?
+                  {t('login_forgot')}
                 </Link>
               </div>
 
@@ -118,17 +120,17 @@ function LoginContent() {
                 loading={isSubmitting}
                 disabled={isSubmitting}
               >
-                Prijavite se
+                {t('login_submit')}
               </Button>
             </form>
 
             <div className="mt-6 text-center text-sm text-[hsl(240_5%_55%)]">
-              Nemate nalog?{' '}
+              {t('login_no_account')}{' '}
               <Link
                 href="/auth/register"
                 className="text-[hsl(38_92%_50%)] hover:text-[hsl(38_92%_60%)] font-medium transition-colors"
               >
-                Registrujte se
+                {t('login_register_link')}
               </Link>
             </div>
           </CardContent>
