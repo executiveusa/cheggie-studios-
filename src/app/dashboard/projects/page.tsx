@@ -55,7 +55,7 @@ function getStatusLabel(status: string): string {
   }
 }
 
-export default function ProjectsPage() {
+function ProjectsContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [projects, setProjects] = React.useState<Project[]>([])
@@ -261,5 +261,13 @@ export default function ProjectsPage() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function ProjectsPage() {
+  return (
+    <React.Suspense>
+      <ProjectsContent />
+    </React.Suspense>
   )
 }
