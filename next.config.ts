@@ -234,7 +234,7 @@ const nextConfig: NextConfig = {
 // Sentry configuration options
 const sentryOptions = {
   // Suppresses Sentry source map upload logs during build
-  silent: !process.env.CI,
+  silent: true,
 
   // Sentry organization and project from CLI config
   org: process.env.SENTRY_ORG ?? "cheggie-studios",
@@ -246,8 +246,8 @@ const sentryOptions = {
   // Automatically tree-shake Sentry logger in production
   disableLogger: true,
 
-  // Upload source maps during production builds
-  widenClientFileUpload: true,
+  // Only upload source maps when auth token is present
+  widenClientFileUpload: !!process.env.SENTRY_AUTH_TOKEN,
 
   // Route browser requests to Sentry through Next.js rewrite (avoids ad blockers)
   tunnelRoute: "/monitoring",
@@ -259,6 +259,15 @@ const sentryOptions = {
   reactComponentAnnotation: {
     enabled: true,
   },
+
+  // Disable source map upload when no auth token
+  sourcemaps: {
+    disable: !process.env.SENTRY_AUTH_TOKEN,
+  },
 };
 
-export default withSentryConfig(nextConfig, sentryOptions);
+// Only apply Sentry wrapping when auth token is available (production deploys)
+// In CI build-only runs without SENTRY_AUTH_TOKEN, use bare Next.js config
+export default process.env.SENTRY_AUTH_TOKEN
+  ? withSentryConfig(nextConfig, sentryOptions)
+  : nextConfig;
