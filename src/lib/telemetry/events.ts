@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/db'
 import { logger } from './logger'
 
@@ -35,7 +36,7 @@ export async function trackEvent(
     await prisma.telemetryEvent.create({
       data: {
         type,
-        payload: payload ?? {},
+        payload: (payload ?? {}) as unknown as Prisma.InputJsonValue,
         userId: context?.userId ?? null,
         projectId: context?.projectId ?? null,
         sessionId: context?.sessionId ?? null,

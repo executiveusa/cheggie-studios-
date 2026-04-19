@@ -7,8 +7,10 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "infisical run --env=development -- next dev --turbopack",
+    "dev:local": "next dev --turbopack",
+    "build": "prisma generate && next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -34,10 +36,13 @@
     "deploy:check": "tsx tools/vercel-agent/check-deployment.ts"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^1.3.24",
+    "@ai-sdk/react": "^3.0.140",
     "@auth/prisma-adapter": "^2.7.4",
     "@aws-sdk/client-s3": "^3.1014.0",
     "@aws-sdk/s3-request-presigner": "^3.1014.0",
     "@hookform/resolvers": "^3.10.0",
+    "@infisical/sdk": "^5.0.0",
     "@prisma/client": "^6.5.0",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
@@ -61,6 +66,7 @@
     "@tanstack/react-query": "^5.70.0",
     "@tanstack/react-query-devtools": "^5.70.0",
     "@upstash/ratelimit": "^2.0.5",
+    "ai": "^4.3.19",
     "bcryptjs": "^3.0.3",
     "bullmq": "^5.34.0",
     "class-variance-authority": "^0.7.1",

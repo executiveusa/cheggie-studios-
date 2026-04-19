@@ -150,6 +150,15 @@ export type Env = z.infer<typeof envSchema>
 // ---------------------------------------------------------------------------
 
 function parseEnv(): Env {
+  // Allow skipping validation at build time (Vercel build step)
+  if (process.env.SKIP_ENV_VALIDATION === '1') {
+    return envSchema.parse({
+      ...process.env,
+      DATABASE_URL: process.env.DATABASE_URL || 'postgresql://build:build@localhost:5432/build',
+      NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || 'build-time-placeholder-secret-32chars!',
+    })
+  }
+
   const result = envSchema.safeParse(process.env)
 
   if (!result.success) {

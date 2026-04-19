@@ -1,0 +1,381 @@
+
+> cheggie-studios@0.1.0 build /home/runner/work/cheggie-studios-/cheggie-studios-
+> prisma generate && next build
+
+Prisma schema loaded from prisma/schema.prisma
+
+✔ Generated Prisma Client (v6.19.2) to ./node_modules/.pnpm/@prisma+client@6.19.2_prisma@6.19.2_magicast@0.3.5_typescript@5.9.3__typescript@5.9.3/node_modules/@prisma/client in 207ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
+
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+   ▲ Next.js 15.5.14
+   - Experiments (use with caution):
+     ⨯ reactCompiler
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (128kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Compiled with warnings in 24.1s
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@sentry+node@9.47.1/node_modules/@sentry/node/build/cjs/integrations/tracing/postgresjs.js
+./node_modules/.pnpm/@sentry+node@9.47.1/node_modules/@sentry/node/build/cjs/index.js
+./node_modules/.pnpm/@sentry+nextjs@9.47.1_@opentelemetry+context-async-hooks@1.30.1_@opentelemetry+api@1.9.0__@op_37cgedopyigp63dmqspuamdsxy/node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/instrumentation.node.ts
+
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@sentry+node@9.47.1/node_modules/@sentry/node/build/cjs/integrations/tracing/postgresjs.js
+./node_modules/.pnpm/@sentry+node@9.47.1/node_modules/@sentry/node/build/cjs/index.js
+./node_modules/.pnpm/@sentry+nextjs@9.47.1_@opentelemetry+context-async-hooks@1.30.1_@opentelemetry+api@1.9.0__@op_37cgedopyigp63dmqspuamdsxy/node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/lib/telemetry/logger.ts
+./src/app/api/files/[...key]/route.ts
+
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+./node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+./node_modules/.pnpm/@sentry+node@9.47.1/node_modules/@sentry/node/build/cjs/integrations/tracing/postgresjs.js
+./node_modules/.pnpm/@sentry+node@9.47.1/node_modules/@sentry/node/build/cjs/index.js
+./node_modules/.pnpm/@sentry+nextjs@9.47.1_@opentelemetry+context-async-hooks@1.30.1_@opentelemetry+api@1.9.0__@op_37cgedopyigp63dmqspuamdsxy/node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/lib/telemetry/logger.ts
+./src/app/api/files/[...key]/route.ts
+
+./node_modules/.pnpm/@prisma+client@6.19.2_prisma@6.19.2_magicast@0.3.5_typescript@5.9.3__typescript@5.9.3/node_modules/@prisma/client/runtime/wasm-engine-edge.js
+A Node.js API is used (setImmediate at line: 12) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/.pnpm/@prisma+client@6.19.2_prisma@6.19.2_magicast@0.3.5_typescript@5.9.3__typescript@5.9.3/node_modules/@prisma/client/runtime/wasm-engine-edge.js
+./node_modules/.pnpm/@prisma+client@6.19.2_prisma@6.19.2_magicast@0.3.5_typescript@5.9.3__typescript@5.9.3/node_modules/.prisma/client/wasm.js
+./node_modules/.pnpm/@prisma+client@6.19.2_prisma@6.19.2_magicast@0.3.5_typescript@5.9.3__typescript@5.9.3/node_modules/.prisma/client/default.js
+./node_modules/.pnpm/@prisma+client@6.19.2_prisma@6.19.2_magicast@0.3.5_typescript@5.9.3__typescript@5.9.3/node_modules/@prisma/client/default.js
+./src/lib/db/index.ts
+./src/lib/auth/index.ts
+
+./node_modules/.pnpm/bcryptjs@3.0.3/node_modules/bcryptjs/index.js
+A Node.js module is loaded ('crypto' at line 32) which is not supported in the Edge Runtime.
+Learn More: https://nextjs.org/docs/messages/node-module-in-edge-runtime
+
+Import trace for requested module:
+./node_modules/.pnpm/bcryptjs@3.0.3/node_modules/bcryptjs/index.js
+./src/lib/auth/password.ts
+./src/lib/auth/index.ts
+
+./node_modules/.pnpm/bcryptjs@3.0.3/node_modules/bcryptjs/index.js
+A Node.js API is used (setImmediate at line: 335) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/.pnpm/bcryptjs@3.0.3/node_modules/bcryptjs/index.js
+./src/lib/auth/password.ts
+./src/lib/auth/index.ts
+
+./node_modules/.pnpm/bcryptjs@3.0.3/node_modules/bcryptjs/index.js
+A Node.js API is used (setImmediate at line: 336) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/.pnpm/bcryptjs@3.0.3/node_modules/bcryptjs/index.js
+./src/lib/auth/password.ts
+./src/lib/auth/index.ts
+
+./node_modules/.pnpm/jose@6.2.2/node_modules/jose/dist/webapi/lib/deflate.js
+A Node.js API is used (CompressionStream at line: 10) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/.pnpm/jose@6.2.2/node_modules/jose/dist/webapi/lib/deflate.js
+./node_modules/.pnpm/jose@6.2.2/node_modules/jose/dist/webapi/jwe/flattened/decrypt.js
+./node_modules/.pnpm/jose@6.2.2/node_modules/jose/dist/webapi/index.js
+./node_modules/.pnpm/@auth+core@0.41.0/node_modules/@auth/core/jwt.js
+./node_modules/.pnpm/@auth+core@0.41.0/node_modules/@auth/core/lib/init.js
+./node_modules/.pnpm/@auth+core@0.41.0/node_modules/@auth/core/lib/index.js
+./node_modules/.pnpm/@auth+core@0.41.0/node_modules/@auth/core/index.js
+./node_modules/.pnpm/next-auth@5.0.0-beta.30_next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+_zmfkhyn64jqtplvmdnobexbuiu/node_modules/next-auth/index.js
+./src/lib/auth/index.ts
+
+./node_modules/.pnpm/jose@6.2.2/node_modules/jose/dist/webapi/lib/deflate.js
+A Node.js API is used (DecompressionStream at line: 26) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/.pnpm/jose@6.2.2/node_modules/jose/dist/webapi/lib/deflate.js
+./node_modules/.pnpm/jose@6.2.2/node_modules/jose/dist/webapi/jwe/flattened/decrypt.js
+./node_modules/.pnpm/jose@6.2.2/node_modules/jose/dist/webapi/index.js
+./node_modules/.pnpm/@auth+core@0.41.0/node_modules/@auth/core/jwt.js
+./node_modules/.pnpm/@auth+core@0.41.0/node_modules/@auth/core/lib/init.js
+./node_modules/.pnpm/@auth+core@0.41.0/node_modules/@auth/core/lib/index.js
+./node_modules/.pnpm/@auth+core@0.41.0/node_modules/@auth/core/index.js
+./node_modules/.pnpm/next-auth@5.0.0-beta.30_next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+_zmfkhyn64jqtplvmdnobexbuiu/node_modules/next-auth/index.js
+./src/lib/auth/index.ts
+
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+Error: Connection is closed.
+    at EventEmitter.i (.next/server/chunks/9541.js:139:66776)
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+Error: Connection is closed.
+    at EventEmitter.i (.next/server/chunks/9541.js:139:66776)
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+Error: Connection is closed.
+    at EventEmitter.i (.next/server/chunks/9541.js:139:66776)
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+   Generating static pages (0/12) ...
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[redis] connection error { message: '' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+[AggregateError: ] { code: 'ECONNREFUSED' }
+   Generating static pages (3/12) 
+   Generating static pages (6/12) 
+ ⨯ useSearchParams() should be wrapped in a suspense boundary at page "/auth/error". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at g (/home/runner/work/cheggie-studios-/cheggie-studios-/.next/server/chunks/6975.js:3:18575)
+    at m (/home/runner/work/cheggie-studios-/cheggie-studios-/.next/server/chunks/6975.js:1:13325)
+    at n (/home/runner/work/cheggie-studios-/cheggie-studios-/.next/server/app/auth/error/page.js:2:9679)
+    at n3 (/home/runner/work/cheggie-studios-/cheggie-studios-/node_modules/.pnpm/next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-dom@19_ma7c7jiylslkpsgem52w5zu2we/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:82831)
+    at n6 (/home/runner/work/cheggie-studios-/cheggie-studios-/node_modules/.pnpm/next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-dom@19_ma7c7jiylslkpsgem52w5zu2we/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:84601)
+    at n5 (/home/runner/work/cheggie-studios-/cheggie-studios-/node_modules/.pnpm/next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-dom@19_ma7c7jiylslkpsgem52w5zu2we/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:104801)
+    at n7 (/home/runner/work/cheggie-studios-/cheggie-studios-/node_modules/.pnpm/next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-dom@19_ma7c7jiylslkpsgem52w5zu2we/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:102219)
+    at n8 (/home/runner/work/cheggie-studios-/cheggie-studios-/node_modules/.pnpm/next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-dom@19_ma7c7jiylslkpsgem52w5zu2we/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:83183)
+    at n6 (/home/runner/work/cheggie-studios-/cheggie-studios-/node_modules/.pnpm/next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-dom@19_ma7c7jiylslkpsgem52w5zu2we/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:84647)
+    at n6 (/home/runner/work/cheggie-studios-/cheggie-studios-/node_modules/.pnpm/next@15.5.14_@babel+core@7.29.0_@opentelemetry+api@1.9.0_@playwright+test@1.58.2_react-dom@19_ma7c7jiylslkpsgem52w5zu2we/node_modules/next/dist/compiled/next-server/app-page.runtime.prod.js:2:101560)
+Error occurred prerendering page "/auth/error". Read more: https://nextjs.org/docs/messages/prerender-error
+Export encountered an error on /auth/error/page: /auth/error, exiting the build.
+ ⨯ Next.js build worker exited with code: 1 and signal: null
+ ELIFECYCLE  Command failed with exit code 1.
