@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
     ppr: false,
   },
 
+<<<<<<< HEAD
   // Typed routes disabled — requires clean TS compilation across all files
   // typedRoutes: true,
 
